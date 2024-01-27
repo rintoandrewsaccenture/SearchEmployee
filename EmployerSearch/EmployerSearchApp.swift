@@ -9,14 +9,10 @@ import SwiftUI
 
 @main
 struct EmployerSearchApp: App {
-    let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
-
-            EmployerView(employerVM: EmployerViewModel(repository: Repository()))
-//            ContentView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            EmployerView(employerVM: EmployerViewModel(repository: Repository(databseRepoProtocol: DataBaseRepository(mainContext: CoreDataStack.shared.mainContent), webserviceRepositoryProtocol: WebServiceRepository())))
         }
     }
 }

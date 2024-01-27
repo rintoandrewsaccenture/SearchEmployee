@@ -23,6 +23,11 @@
 		00C375EB2B63D06F00C56BA6 /* ItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C375EA2B63D06F00C56BA6 /* ItemRow.swift */; };
 		00C375ED2B63F9D800C56BA6 /* ErrorTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C375EC2B63F9D800C56BA6 /* ErrorTextStyle.swift */; };
 		00C375EF2B6400C500C56BA6 /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C375EE2B6400C500C56BA6 /* Mock.swift */; };
+		00F3691A2B6434B70088CEE7 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F369192B6434B70088CEE7 /* CoreDataStack.swift */; };
+		00F369202B643CCF0088CEE7 /* QueryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3691F2B643CCF0088CEE7 /* QueryModel.swift */; };
+		00F369222B6513710088CEE7 /* DataBaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F369212B6513710088CEE7 /* DataBaseRepository.swift */; };
+		00F369242B65138F0088CEE7 /* WebServiceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F369232B65138F0088CEE7 /* WebServiceRepository.swift */; };
+		00F369262B6518970088CEE7 /* CoreDataTestStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F369252B6518970088CEE7 /* CoreDataTestStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +67,11 @@
 		00C375EA2B63D06F00C56BA6 /* ItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRow.swift; sourceTree = "<group>"; };
 		00C375EC2B63F9D800C56BA6 /* ErrorTextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTextStyle.swift; sourceTree = "<group>"; };
 		00C375EE2B6400C500C56BA6 /* Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
+		00F369192B6434B70088CEE7 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		00F3691F2B643CCF0088CEE7 /* QueryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryModel.swift; sourceTree = "<group>"; };
+		00F369212B6513710088CEE7 /* DataBaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseRepository.swift; sourceTree = "<group>"; };
+		00F369232B65138F0088CEE7 /* WebServiceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceRepository.swift; sourceTree = "<group>"; };
+		00F369252B6518970088CEE7 /* CoreDataTestStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,9 +122,10 @@
 		00C375A72B63C32200C56BA6 /* EmployerSearch */ = {
 			isa = PBXGroup;
 			children = (
+				00F369182B6434220088CEE7 /* CoreData */,
 				00C375E72B63C59200C56BA6 /* Components */,
 				00C375DA2B63C35E00C56BA6 /* Scenes */,
-				00C375D72B63C32F00C56BA6 /* Networking */,
+				00C375D72B63C32F00C56BA6 /* Repository */,
 				00C375A82B63C32200C56BA6 /* EmployerSearchApp.swift */,
 				00C375AC2B63C32500C56BA6 /* Assets.xcassets */,
 				00C375B12B63C32500C56BA6 /* Persistence.swift */,
@@ -137,6 +148,7 @@
 			children = (
 				00C375BE2B63C32500C56BA6 /* EmployerSearchTests.swift */,
 				00C375EE2B6400C500C56BA6 /* Mock.swift */,
+				00F369252B6518970088CEE7 /* CoreDataTestStack.swift */,
 			);
 			path = EmployerSearchTests;
 			sourceTree = "<group>";
@@ -150,12 +162,14 @@
 			path = EmployerSearchUITests;
 			sourceTree = "<group>";
 		};
-		00C375D72B63C32F00C56BA6 /* Networking */ = {
+		00C375D72B63C32F00C56BA6 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
 				00C375D82B63C34100C56BA6 /* Repository.swift */,
+				00F369212B6513710088CEE7 /* DataBaseRepository.swift */,
+				00F369232B65138F0088CEE7 /* WebServiceRepository.swift */,
 			);
-			path = Networking;
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		00C375DA2B63C35E00C56BA6 /* Scenes */ = {
@@ -188,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				00C375DF2B63C37800C56BA6 /* Employer.swift */,
+				00F3691F2B643CCF0088CEE7 /* QueryModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -208,6 +223,14 @@
 				00C375EC2B63F9D800C56BA6 /* ErrorTextStyle.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		00F369182B6434220088CEE7 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				00F369192B6434B70088CEE7 /* CoreDataStack.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -340,12 +363,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00F369242B65138F0088CEE7 /* WebServiceRepository.swift in Sources */,
 				00C375B22B63C32500C56BA6 /* Persistence.swift in Sources */,
 				00C375E42B63C37800C56BA6 /* Employer.swift in Sources */,
+				00F369222B6513710088CEE7 /* DataBaseRepository.swift in Sources */,
 				00C375E32B63C37800C56BA6 /* EmployerViewModel.swift in Sources */,
 				00C375ED2B63F9D800C56BA6 /* ErrorTextStyle.swift in Sources */,
+				00F369202B643CCF0088CEE7 /* QueryModel.swift in Sources */,
 				00C375D92B63C34100C56BA6 /* Repository.swift in Sources */,
 				00C375E52B63C37800C56BA6 /* EmployerView.swift in Sources */,
+				00F3691A2B6434B70088CEE7 /* CoreDataStack.swift in Sources */,
 				00C375B52B63C32500C56BA6 /* EmployerSearch.xcdatamodeld in Sources */,
 				00C375EB2B63D06F00C56BA6 /* ItemRow.swift in Sources */,
 				00C375E92B63C5AA00C56BA6 /* ErrorView.swift in Sources */,
@@ -358,6 +385,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00C375BF2B63C32500C56BA6 /* EmployerSearchTests.swift in Sources */,
+				00F369262B6518970088CEE7 /* CoreDataTestStack.swift in Sources */,
 				00C375EF2B6400C500C56BA6 /* Mock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

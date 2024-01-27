@@ -24,6 +24,7 @@ final class EmployerSearchTests: XCTestCase {
 
     func test_EmployerViewModel_WhenUserSearchWithValidQuery_ShouldReturnEmployers() {
         let repository = MockRepository()
+        
         let employerVM = EmployerViewModel(repository: repository)
 
         employerVM.state = .loaded(EmployerView.Config(employerList: Employer.mock()))
@@ -98,7 +99,9 @@ final class EmployerSearchTests: XCTestCase {
     }
 
     func test_EmployerViewModel_WhenQueryIsEmpty_ValidationThrowError() throws {
-        let employerVM = EmployerViewModel(repository: Repository())
+        let coredataStack = CoreDataTestStack()
+
+        let employerVM = EmployerViewModel(repository: Repository(databseRepoProtocol: DataBaseRepository(mainContext: coredataStack.mainContent), webserviceRepositoryProtocol: WebServiceRepository()))
 
         employerVM.filter = ""
         do {
@@ -110,7 +113,8 @@ final class EmployerSearchTests: XCTestCase {
 
 
     func test_EmployerViewModel_WhenQueryEnterdIsEmpty_ValidationShouldFail() throws {
-        let employerVM = EmployerViewModel(repository: Repository())
+        let coredataStack = CoreDataTestStack()
+        let employerVM = EmployerViewModel(repository: Repository(databseRepoProtocol: DataBaseRepository(mainContext: coredataStack.mainContent), webserviceRepositoryProtocol: WebServiceRepository()))
 
         employerVM.state = .loaded(EmployerView.Config(employerList: []))
         let expection = expectation(description: #function)
@@ -127,7 +131,6 @@ final class EmployerSearchTests: XCTestCase {
         }
         wait(for: [expection], timeout: 0.1)
     }
-
 }
 
 

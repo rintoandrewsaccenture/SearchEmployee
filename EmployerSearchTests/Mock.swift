@@ -11,9 +11,9 @@ import XCTest
 @testable import EmployerSearch
 
 class MockRepository: RepositoryProtocol {
-    /// Used to test api error case
+
+    /// Used to test  error case
     var error: Error!
-    /// If error is set then throw error to test api failture case
     func getEmployers(with filter: String) async throws -> [Employer] {
         if let error = error {
             throw error
@@ -46,3 +46,20 @@ extension EmployerViewModel.State {
 enum APIFail: Error {
     case noResponse
 }
+
+let emplopyers = """
+[
+   {
+      "DiscountPercentage":17,
+      "EmployerID":14116,
+      "Name":"Achmea Zeist",
+      "Place":"ZEIST"
+   },
+   {
+      "DiscountPercentage":8,
+      "EmployerID":50832,
+      "Name":"Achmea Vitaliteit b.v. Leusden",
+      "Place":"LEUSDEN"
+   }
+]
+"""

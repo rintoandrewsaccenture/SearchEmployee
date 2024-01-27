@@ -8,7 +8,6 @@
 import Foundation
 
 struct Employer: Codable, Equatable, Hashable {
-    /// Group
     let discountPercentage, employerID: Int
     let name, place: String
 
@@ -18,6 +17,4 @@ struct Employer: Codable, Equatable, Hashable {
         case name = "Name"
         case place = "Place"
     }
-
-
 }

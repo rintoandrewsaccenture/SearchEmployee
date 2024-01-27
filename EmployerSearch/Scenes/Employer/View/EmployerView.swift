@@ -70,5 +70,5 @@ struct EmployerView: View {
 }
 
 #Preview {
-    EmployerView(employerVM: EmployerViewModel(repository: Repository()))
+    EmployerView(employerVM: EmployerViewModel(repository: Repository(databseRepoProtocol: DataBaseRepository(mainContext: CoreDataStack.shared.mainContent), webserviceRepositoryProtocol: WebServiceRepository())))
 }
