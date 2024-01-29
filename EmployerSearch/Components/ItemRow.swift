@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-//Test commit
+
 struct ItemRow: View {
 
     let employer: Employer

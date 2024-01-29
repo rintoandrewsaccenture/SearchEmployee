@@ -32,6 +32,12 @@ extension Employer {
     }
 }
 
+class MockWebService: WebServiceRepositoryProtocol {
+    func getEmployersApi(with filter: String) async throws -> Data {
+        return emplopyers.data(using: .utf8)!
+    }
+}
+
 extension EmployerViewModel.State {
     func loadConfig() -> EmployerView.Config? {
         switch self {
@@ -53,6 +59,23 @@ let emplopyers = """
       "DiscountPercentage":17,
       "EmployerID":14116,
       "Name":"Achmea Zeist",
+      "Place":"ZEIST"
+   },
+   {
+      "DiscountPercentage":8,
+      "EmployerID":50832,
+      "Name":"Achmea Vitaliteit b.v. Leusden",
+      "Place":"LEUSDEN"
+   }
+]
+"""
+
+let emplopyers2 = """
+[
+   {
+      "DiscountPercentage":17,
+      "EmployerID":14116,
+      "Name":"Achmea",
       "Place":"ZEIST"
    },
    {

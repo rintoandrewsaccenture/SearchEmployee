@@ -24,7 +24,7 @@ final class Repository: RepositoryProtocol {
     }
 
     func getEmployers(with query: String) async throws -> [Employer] {
-        if let savedQuery: Query = try dataBaseRepositoryProtocol.fetchQuery(with: query),
+        if let savedQuery: Query = try dataBaseRepositoryProtocol.fetchQuery(with: query.lowercased()),
            let expiery = savedQuery.timestamp,
            let employerlist = savedQuery.response {
 

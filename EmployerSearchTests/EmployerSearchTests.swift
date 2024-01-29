@@ -15,18 +15,14 @@ final class EmployerSearchTests: XCTestCase {
     var cancellables = Set<AnyCancellable>()
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
     func test_EmployerViewModel_WhenUserSearchWithValidQuery_ShouldReturnEmployers() {
         let repository = MockRepository()
-        
         let employerVM = EmployerViewModel(repository: repository)
-
         employerVM.state = .loaded(EmployerView.Config(employerList: Employer.mock()))
 
         let expection = expectation(description: #function)
@@ -43,7 +39,6 @@ final class EmployerSearchTests: XCTestCase {
     func test_EmpolyerViewModel_WhenUserEnterEmptyQuery_ShouldReturnErrorMessage() {
         let repository = MockRepository()
         let employerVM = EmployerViewModel(repository: repository)
-
         employerVM.state = .loaded(EmployerView.Config(employerList: [],validationErrorMessage: "please enter valid query"))
 
         let expection = expectation(description: #function)
@@ -60,9 +55,7 @@ final class EmployerSearchTests: XCTestCase {
     func test_EmployerViewModel_WhenCallAPISuccess_ReturnEmployersList() {
         let repository = MockRepository()
         let employerVM = EmployerViewModel(repository: repository)
-
         employerVM.state = .loaded(EmployerView.Config(employerList: []))
-
 
         let expection = expectation(description: #function)
         employerVM.$state
@@ -80,10 +73,9 @@ final class EmployerSearchTests: XCTestCase {
     func test_EmployerViewModel_WhenCallAPIFail_ReturnError() {
         let repository = MockRepository()
         repository.error = APIFail.noResponse
+
         let employerVM = EmployerViewModel(repository: repository)
-
         employerVM.state = .loaded(EmployerView.Config(employerList: []))
-
 
         let expection = expectation(description: #function)
         employerVM.$state
@@ -99,9 +91,8 @@ final class EmployerSearchTests: XCTestCase {
     }
 
     func test_EmployerViewModel_WhenQueryIsEmpty_ValidationThrowError() throws {
-        let coredataStack = CoreDataTestStack()
-
-        let employerVM = EmployerViewModel(repository: Repository(databseRepoProtocol: DataBaseRepository(mainContext: coredataStack.mainContent), webserviceRepositoryProtocol: WebServiceRepository()))
+        let employerVM = EmployerViewModel(repository: Repository(databseRepoProtocol: DataBaseRepository(mainContext: CoreDataTestStack.shared.mainContent),
+                                                                  webserviceRepositoryProtocol: WebServiceRepository()))
 
         employerVM.filter = ""
         do {
@@ -113,10 +104,11 @@ final class EmployerSearchTests: XCTestCase {
 
 
     func test_EmployerViewModel_WhenQueryEnterdIsEmpty_ValidationShouldFail() throws {
-        let coredataStack = CoreDataTestStack()
-        let employerVM = EmployerViewModel(repository: Repository(databseRepoProtocol: DataBaseRepository(mainContext: coredataStack.mainContent), webserviceRepositoryProtocol: WebServiceRepository()))
+        let employerVM = EmployerViewModel(repository: Repository(databseRepoProtocol: DataBaseRepository(mainContext: CoreDataTestStack.shared.mainContent),
+                                                                  webserviceRepositoryProtocol: WebServiceRepository()))
 
-        employerVM.state = .loaded(EmployerView.Config(employerList: []))
+        employerVM.filter = ""
+        employerVM.state = .loaded(EmployerView.Config(employerList: [], validationErrorMessage: nil))
         let expection = expectation(description: #function)
         employerVM.$state
             .dropFirst()
@@ -131,6 +123,46 @@ final class EmployerSearchTests: XCTestCase {
         }
         wait(for: [expection], timeout: 0.1)
     }
+
+    func test_DataBaseRepository_SaveAndUpdateQueryDataBase_RetriveSavedQuery() {
+        let dbRepository = DataBaseRepository(mainContext: CoreDataTestStack.shared.mainContent)
+        /// Save data in Memory
+        try? dbRepository.save(queryModel: QueryModel(query: "info", date: Date().addingTimeInterval(7*24*60*60), json: emplopyers.data(using: .utf8)!))
+
+        let query = try? dbRepository.fetchQuery(with: "info")
+
+        XCTAssertEqual(query?.query, "info")
+        XCTAssertEqual(emplopyers.data(using: .utf8), query?.response)
+
+        try? dbRepository.updateQuery(query: query!, response: emplopyers2.data(using: .utf8)!)
+
+        let fetchedquery = try? dbRepository.fetchQuery(with: "info")
+
+        XCTAssertEqual(emplopyers2.data(using: .utf8), fetchedquery?.response)
+    }
+
+    func test_IfDataNotAvailbleInCache_LoadFromAPI() async {
+        let coredataStack = CoreDataTestStack()
+        let dbRepository = DataBaseRepository(mainContext: coredataStack.mainContent)
+        let employerVM = EmployerViewModel(repository: Repository(databseRepoProtocol: dbRepository,
+                                                                  webserviceRepositoryProtocol: MockWebService()))
+
+
+        let employers = try? await employerVM.repository.getEmployers(with: "infosec")
+        XCTAssertEqual(employers?.count, 2)
+    }
+
+    func test_IfDataAvailableInCache_LoadFromCache() async {
+        let coredataStack = CoreDataTestStack()
+        let dbRepository = DataBaseRepository(mainContext: coredataStack.mainContent)
+        let employerVM = EmployerViewModel(repository: Repository(databseRepoProtocol: dbRepository,
+                                                                  webserviceRepositoryProtocol: MockWebService()))
+        /// Simulate exisiting data in database
+        try? dbRepository.save(queryModel: QueryModel(query: "info", date: Date().addingTimeInterval(7*24*60*60), json: emplopyers.data(using: .utf8)!))
+        let employers = try? await employerVM.repository.getEmployers(with: "info")
+        XCTAssertEqual(employers?.count, 2)
+    }
+
 }
 
 

@@ -28,6 +28,9 @@
 		00F369222B6513710088CEE7 /* DataBaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F369212B6513710088CEE7 /* DataBaseRepository.swift */; };
 		00F369242B65138F0088CEE7 /* WebServiceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F369232B65138F0088CEE7 /* WebServiceRepository.swift */; };
 		00F369262B6518970088CEE7 /* CoreDataTestStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F369252B6518970088CEE7 /* CoreDataTestStack.swift */; };
+		00F369292B6588FF0088CEE7 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F369282B6588FF0088CEE7 /* Host.swift */; };
+		00F3692B2B658BC80088CEE7 /* EmployersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3692A2B658BC80088CEE7 /* EmployersRequest.swift */; };
+		00F3692D2B658D6F0088CEE7 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3692C2B658D6F0088CEE7 /* ApiService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +75,9 @@
 		00F369212B6513710088CEE7 /* DataBaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseRepository.swift; sourceTree = "<group>"; };
 		00F369232B65138F0088CEE7 /* WebServiceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceRepository.swift; sourceTree = "<group>"; };
 		00F369252B6518970088CEE7 /* CoreDataTestStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestStack.swift; sourceTree = "<group>"; };
+		00F369282B6588FF0088CEE7 /* Host.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
+		00F3692A2B658BC80088CEE7 /* EmployersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployersRequest.swift; sourceTree = "<group>"; };
+		00F3692C2B658D6F0088CEE7 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +128,7 @@
 		00C375A72B63C32200C56BA6 /* EmployerSearch */ = {
 			isa = PBXGroup;
 			children = (
+				00F369272B6588AC0088CEE7 /* Network */,
 				00F369182B6434220088CEE7 /* CoreData */,
 				00C375E72B63C59200C56BA6 /* Components */,
 				00C375DA2B63C35E00C56BA6 /* Scenes */,
@@ -231,6 +238,16 @@
 				00F369192B6434B70088CEE7 /* CoreDataStack.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		00F369272B6588AC0088CEE7 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				00F369282B6588FF0088CEE7 /* Host.swift */,
+				00F3692A2B658BC80088CEE7 /* EmployersRequest.swift */,
+				00F3692C2B658D6F0088CEE7 /* ApiService.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -369,9 +386,12 @@
 				00F369222B6513710088CEE7 /* DataBaseRepository.swift in Sources */,
 				00C375E32B63C37800C56BA6 /* EmployerViewModel.swift in Sources */,
 				00C375ED2B63F9D800C56BA6 /* ErrorTextStyle.swift in Sources */,
+				00F369292B6588FF0088CEE7 /* Host.swift in Sources */,
 				00F369202B643CCF0088CEE7 /* QueryModel.swift in Sources */,
 				00C375D92B63C34100C56BA6 /* Repository.swift in Sources */,
 				00C375E52B63C37800C56BA6 /* EmployerView.swift in Sources */,
+				00F3692B2B658BC80088CEE7 /* EmployersRequest.swift in Sources */,
+				00F3692D2B658D6F0088CEE7 /* ApiService.swift in Sources */,
 				00F3691A2B6434B70088CEE7 /* CoreDataStack.swift in Sources */,
 				00C375B52B63C32500C56BA6 /* EmployerSearch.xcdatamodeld in Sources */,
 				00C375EB2B63D06F00C56BA6 /* ItemRow.swift in Sources */,

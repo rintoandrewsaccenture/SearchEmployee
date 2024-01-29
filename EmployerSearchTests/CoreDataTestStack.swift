@@ -13,6 +13,8 @@ import XCTest
 
 struct CoreDataTestStack {
 
+    static let shared = CoreDataTestStack()
+
     let persitentContianer: NSPersistentContainer
     let mainContent: NSManagedObjectContext
 

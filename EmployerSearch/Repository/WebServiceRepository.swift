@@ -13,9 +13,14 @@ protocol WebServiceRepositoryProtocol {
 
 final class WebServiceRepository: WebServiceRepositoryProtocol {
 
+    var httpService: HttpServiceProtocol
+    init() {
+        self.httpService = ApiService()
+    }
+
     func getEmployersApi(with filter: String) async throws -> Data {
-        let url = URL(string: "https://cba.kooijmans.nl/CBAEmployerservice.svc/rest/employers?filter=\(filter)&maxRows=100")!
-        let (data, _) = try await URLSession.shared.data(from: url)
-        return data
+        let employersRequest = EmployersRequest(query: filter)
+        let response = try await httpService.sendDataRequest(employersRequest.urlRequest())
+        return response
     }
 }
