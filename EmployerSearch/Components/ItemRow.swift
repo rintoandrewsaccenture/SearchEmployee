@@ -13,14 +13,22 @@ struct ItemRow: View {
 
     var body: some View {
         HStack {
-            VStack {
+            VStack(alignment: .leading, spacing: 8) {
                 Text(employer.name)
+                    .bold()
+                    .font(.system(size: 18))
                 Text(employer.place)
+                    .foregroundStyle(Color.gray)
             }
+
             Spacer()
-            VStack {
-                Text("Employee ID \(employer.employerID)")
-                Text("Discount Percentage\(employer.discountPercentage)%")
+
+            VStack(alignment: .trailing, spacing: 10) {
+                Text("ID: \(employer.employerID)")
+                    .bold()
+                    .font(.system(size: 18))
+                Text("Discount: \(employer.discountPercentage)%")
+                    .foregroundStyle(Color.green)
             }
         }
         .padding()
@@ -28,5 +36,5 @@ struct ItemRow: View {
 }
 
 #Preview {
-    ItemRow(employer: Employer(discountPercentage: 34, employerID: 87343, name: "John", place: "USA"))
+    ItemRow(employer: Employer(discountPercentage: 34, employerID: 87343, name: "Info Systems Limited", place: "USA"))
 }

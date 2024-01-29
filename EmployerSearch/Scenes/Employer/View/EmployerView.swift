@@ -28,7 +28,11 @@ struct EmployerView: View {
                 progressView()
             case .loaded(let config):
                 filterInputView(errorMessage: config.validationErrorMessage)
+                if config.employerList.isEmpty {
+                    noContentView()
+                } else {
                 fliteredList(employers: config.employerList)
+                }
             case .loadedWithError(let code, let retry):
                 ErrorView(code: code, retry: retry)
             }
@@ -38,7 +42,7 @@ struct EmployerView: View {
     func filterInputView(errorMessage: String? = nil) -> some View {
         VStack(alignment: .leading) {
             HStack {
-                TextField("Please enter employer name", text: $employerVM.filter)
+                TextField("Employer name", text: $employerVM.filter)
                 Button("Search") {
                     employerVM.validate {
                         employerVM.loadEmployers()
@@ -50,21 +54,28 @@ struct EmployerView: View {
                     .modifier(ErrorTextModifier())
             }
         }
-        .padding(12)
+        .padding(.horizontal, 16)
     }
 
     func fliteredList(employers: [Employer]) -> some View {
         List(employers, id: \.self) { employer in
             ItemRow(employer: employer)
         }
+        .listStyle(PlainListStyle())
     }
 
     func progressView() -> some View {
         VStack {
-            Spacer()
             ProgressView()
                 .progressViewStyle(.circular)
-            Spacer()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+    }
+
+    func noContentView() -> some View {
+        VStack {
+            NoContentView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }

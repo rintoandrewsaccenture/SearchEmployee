@@ -31,6 +31,7 @@
 		00F369292B6588FF0088CEE7 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F369282B6588FF0088CEE7 /* Host.swift */; };
 		00F3692B2B658BC80088CEE7 /* EmployersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3692A2B658BC80088CEE7 /* EmployersRequest.swift */; };
 		00F3692D2B658D6F0088CEE7 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F3692C2B658D6F0088CEE7 /* ApiService.swift */; };
+		00F369312B67B2A70088CEE7 /* NoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F369302B67B2A70088CEE7 /* NoContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		00F369282B6588FF0088CEE7 /* Host.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
 		00F3692A2B658BC80088CEE7 /* EmployersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployersRequest.swift; sourceTree = "<group>"; };
 		00F3692C2B658D6F0088CEE7 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		00F369302B67B2A70088CEE7 /* NoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +230,7 @@
 				00C375E82B63C5AA00C56BA6 /* ErrorView.swift */,
 				00C375EA2B63D06F00C56BA6 /* ItemRow.swift */,
 				00C375EC2B63F9D800C56BA6 /* ErrorTextStyle.swift */,
+				00F369302B67B2A70088CEE7 /* NoContentView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00F369242B65138F0088CEE7 /* WebServiceRepository.swift in Sources */,
+				00F369312B67B2A70088CEE7 /* NoContentView.swift in Sources */,
 				00C375B22B63C32500C56BA6 /* Persistence.swift in Sources */,
 				00C375E42B63C37800C56BA6 /* Employer.swift in Sources */,
 				00F369222B6513710088CEE7 /* DataBaseRepository.swift in Sources */,
