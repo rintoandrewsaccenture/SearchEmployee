@@ -13,36 +13,49 @@ protocol RepositoryProtocol {
 
 final class Repository: RepositoryProtocol {
 
-    let dataBaseRepositoryProtocol: DataBaseRepositoryProtocol
-    let webserviceRepositoryProtocol: WebServiceRepositoryProtocol
+    let database: DataBaseRepositoryProtocol
+    let webservice: WebServiceRepositoryProtocol
 
-    init(databseRepoProtocol: DataBaseRepositoryProtocol,
-         webserviceRepositoryProtocol: WebServiceRepositoryProtocol ) {
+    init(database: DataBaseRepositoryProtocol,
+         webservice: WebServiceRepositoryProtocol ) {
 
-        self.dataBaseRepositoryProtocol = databseRepoProtocol
-        self.webserviceRepositoryProtocol = webserviceRepositoryProtocol
+        self.database = database
+        self.webservice = webservice
     }
 
     func getEmployers(with query: String) async throws -> [Employer] {
-        if let savedQuery: Query = try dataBaseRepositoryProtocol.fetchQuery(with: query.lowercased()),
-           let expiery = savedQuery.timestamp,
-           let employerlist = savedQuery.response {
-
-            if Date() < expiery {
-                let employers = try JSONDecoder().decode([Employer].self, from: employerlist)
-                return employers
+        if let query = try loadFromDatabase(query: query) {
+            if let response = try isQueryNotExpiredThenUseSavedResponse(query: query) {
+                return response
             } else {
-                let data = try await webserviceRepositoryProtocol.getEmployersApi(with: query)
-                let employers = try JSONDecoder().decode([Employer].self, from: data)
-                try dataBaseRepositoryProtocol.updateQuery(query: savedQuery, response: data)
-                return employers
+                return try await fetchAndSaveToDatabase(query: query.query)
             }
         } else {
-            let data = try await webserviceRepositoryProtocol.getEmployersApi(with: query)
-            let employers = try JSONDecoder().decode([Employer].self, from: data)
-            try dataBaseRepositoryProtocol.save(queryModel: QueryModel(query: query, date: Date().addingTimeInterval(7*24*60*60), json: data))
+            return try await fetchAndSaveToDatabase(query: query)
+        }
+    }
+
+    private func isQueryNotExpiredThenUseSavedResponse(query: QueryModel) throws -> [Employer]? {
+        if Date() < query.expiryDate {
+            let employers = try JSONDecoder().decode([Employer].self, from: query.response)
             return employers
         }
+        return nil
+    }
+
+    private func loadFromDatabase(query: String) throws -> QueryModel? {
+        guard let query: Query = try database.fetchQuery(with: query.lowercased()),
+              let text: String = query.query,
+              let expieryDate = query.timestamp,
+              let response = query.response else { return nil }
+        return QueryModel(query: text, expiryDate: expieryDate, response: response)
+    }
+
+    private func fetchAndSaveToDatabase(query: String) async throws -> [Employer] {
+        let response = try await webservice.getEmployersApi(with: query)
+        let employers = try JSONDecoder().decode([Employer].self, from: response)
+        try database.save(queryModel: QueryModel(query: query, expiryDate: Date().addingTimeInterval(7*24*60*60), response: response))
+        return employers
     }
 }
 

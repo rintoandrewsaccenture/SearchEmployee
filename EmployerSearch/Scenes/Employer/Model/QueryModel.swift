@@ -9,6 +9,6 @@ import Foundation
 
 struct QueryModel {
     let query: String
-    let date: Date
-    let json: Data
+    let expiryDate: Date
+    let response: Data
 }

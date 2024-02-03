@@ -24,8 +24,8 @@ final class DataBaseRepository: DataBaseRepositoryProtocol {
     func save(queryModel: QueryModel) throws {
         let query = Query(context: mainContext)
         query.query = queryModel.query.lowercased()
-        query.timestamp = queryModel.date
-        query.response = queryModel.json
+        query.timestamp = queryModel.expiryDate
+        query.response = queryModel.response
 
         do {
             try mainContext.save()

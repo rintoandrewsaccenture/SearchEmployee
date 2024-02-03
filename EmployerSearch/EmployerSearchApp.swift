@@ -12,7 +12,8 @@ struct EmployerSearchApp: App {
 
     var body: some Scene {
         WindowGroup {
-            EmployerView(employerVM: EmployerViewModel(repository: Repository(databseRepoProtocol: DataBaseRepository(mainContext: CoreDataStack.shared.mainContent), webserviceRepositoryProtocol: WebServiceRepository())))
+            EmployerView(employerVM: EmployerViewModel(repository: Repository(database: DataBaseRepository(mainContext: CoreDataStack.shared.mainContent),
+                                                                              webservice: WebServiceRepository())))
         }
     }
 }
